@@ -13,6 +13,8 @@ public sealed class Player : GameObject {
         }
     }
 
+    private string currDir = "up";
+
     private Dictionary<string, char> directions = new Dictionary<string, char>() {
         {"up", '▲'},
         {"down", '▼'},
@@ -22,7 +24,7 @@ public sealed class Player : GameObject {
 
     private Player () : base(){
         Type = GameObjectType.Player;
-        CharRepresentation = directions["up"];
+        CharRepresentation = directions[currDir];
         Color = ConsoleColor.DarkYellow;
     }
 
@@ -31,5 +33,11 @@ public sealed class Player : GameObject {
             this.PosX = this.GetPrevPosX();
             this.PosY = this.GetPrevPosY();
         }
+    }
+
+    public override void Move(int dx, int dy) {
+        base.Move(dx, dy);
+        currDir = dx == 0 ? (dy == 1 ? "down" : "up") : (dx == 1 ? "right" : "left");
+        CharRepresentation = directions[currDir];
     }
 }
