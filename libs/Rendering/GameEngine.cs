@@ -43,13 +43,15 @@ public sealed class GameEngine
 
     public void Setup(){
         Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+        dynamic gameData = FileHandler.ReadJson();
         
-        map.MapWidth = gameData[currLevel].map.width;
-        map.MapHeight = gameData[currLevel].map.height;
+        map.MapWidth = gameData.map.width;
+        map.MapHeight = gameData.map.height;
 
         gameObjects = new List<GameObject>();
 
-        foreach (var gameObject in gameData[currLevel].gameObjects)
+        foreach (var gameObject in gameData.gameObjects)
         {
             AddGameObject(CreateGameObject(gameObject));
         }
