@@ -103,24 +103,6 @@ public sealed class GameEngine
             }
         });
 
-        // RENDER THE TARGETS
-        gameObjects.ForEach(delegate(GameObject obj)
-        {
-            if (obj.Type == GameObjectType.Target)
-            {
-                map.Set(ref obj);
-            }
-        });
-
-        // RENDER THE BOXES
-        gameObjects.ForEach(delegate(GameObject obj)
-        {
-            if (obj.Type == GameObjectType.Box)
-            {
-                map.Set(ref obj);
-            }
-        });
-
         // RENDER THE PLAYER
         gameObjects.ForEach(delegate(GameObject obj)
         {
