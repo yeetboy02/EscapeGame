@@ -13,7 +13,7 @@ public sealed class Player : GameObject {
         }
     }
 
-    private Dictionary<string, char> directions = new Dictionary<string, string>() {
+    private Dictionary<string, char> directions = new Dictionary<string, char>() {
         {"up", '▲'},
         {"down", '▼'},
         {"right", '▶'},
