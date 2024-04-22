@@ -105,6 +105,16 @@ public sealed class GameEngine
             }
         });
 
+        // RENDER THE NPCs
+        gameObjects.ForEach(delegate(GameObject obj)
+        {
+            if (obj.Type == GameObjectType.NPC)
+            {
+                map.Set(ref obj);
+                return;
+            }
+        });
+
         // RENDER THE PLAYER
         gameObjects.ForEach(delegate(GameObject obj)
         {
