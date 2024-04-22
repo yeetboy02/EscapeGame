@@ -11,6 +11,9 @@ class Program
         
         engine.Setup();
 
+        // INITIAL RENDER
+        engine.Render();
+
         // Main game loop
         while (true)
         {
