@@ -62,7 +62,7 @@ public class GameObject : IGameObject, IMovement
         return _prevPosX;
     }
 
-    public void Move(int dx, int dy) {
+    virtual public void Move(int dx, int dy) {
         _prevPosX = _posX;
         _prevPosY = _posY;
         _posX += dx;
