@@ -18,6 +18,9 @@ public class GameObjectFactory : IGameObjectFactory
             case (int) GameObjectType.Obstacle:
                 newObj = obj.ToObject<Obstacle>();
                 break;
+            case (int) GameObjectType.NPC:
+                newObj = obj.ToObject<NPC>();
+                break;
         }
 
         return newObj;
