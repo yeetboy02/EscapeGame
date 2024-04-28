@@ -62,9 +62,18 @@ public sealed class GameEngine
 
     }
 
-    private bool isCountdownRunning = false;
+    private int numberofSeconds = 0;
+    public int GetNumberOfSeconds() { 
+        return numberofSeconds; 
+    }
+ 
+    public void SetNumberOfSeconds(int value) {
+ 
+        numberofSeconds = value;
+ 
+    }
 
-    public void Render(int numberOfSeconds) {
+    public void Render() {
         
         //Clean the map
         Console.Clear();
@@ -83,26 +92,7 @@ public sealed class GameEngine
             Console.WriteLine();
         };
 
-       if (!isCountdownRunning)
-        {
-            isCountdownRunning = true;
-
-            Thread countdownThread = new Thread(() =>
-            {
-                for (int i = numberOfSeconds; i > 0; i--)
-                {
-                    Console.Write($"\rTime remaining: {i} seconds     ");
-                    Thread.Sleep(1000);
-                }
-                Console.WriteLine("\rCountdown finished!                  ");
-
-                // starts the countdown again, so we'll have to take this out later
-                isCountdownRunning = false;
-            });
-
-            countdownThread.Start();
-        }
-
+        Console.Write($"\rTime remaining: {this.GetNumberOfSeconds()} seconds ");
     }
     
     // Method to create GameObject using the factory from clients
