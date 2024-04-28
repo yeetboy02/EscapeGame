@@ -131,6 +131,7 @@ public sealed class GameEngine
             if (obj.Type == GameObjectType.Key)
             {
                 map.Set(ref obj);
+                return;
             }
         });
     }

@@ -22,7 +22,10 @@ public class GameObjectFactory : IGameObjectFactory
                 newObj = obj.ToObject<NPC>();
                 break;
             case (int) GameObjectType.Key:
-                newObj = obj.ToObject<Key>();
+                newObj = Key.Instance;
+                newObj.PosX = obj.PosX;
+                newObj.PosY = obj.PosY;
+                newObj.Color = obj.Color;
                 break;
         }
 
