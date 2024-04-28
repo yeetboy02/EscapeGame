@@ -1,5 +1,6 @@
 ﻿using System.Reflection.Metadata.Ecma335;
 using System.Text.Json.Nodes;
+using System.Threading;
 
 namespace libs;
 
@@ -20,6 +21,7 @@ public sealed class GameEngine
             return _instance;
         }
     }
+
 
     private GameEngine() {
         //INIT PROPS HERE IF NEEDED
@@ -60,7 +62,9 @@ public sealed class GameEngine
 
     }
 
-    public void Render() {
+    private bool isCountdownRunning = false;
+
+    public void Render(int numberOfSeconds) {
         
         //Clean the map
         Console.Clear();
@@ -69,16 +73,36 @@ public sealed class GameEngine
 
         PlaceGameObjects();
 
-        //Render the map
+        // Render the map
         for (int i = 0; i < map.MapHeight; i++)
         {
             for (int j = 0; j < map.MapWidth; j++)
             {
                 DrawObject(map.Get(i, j));
-                
             }
             Console.WriteLine();
+        };
+
+       if (!isCountdownRunning)
+        {
+            isCountdownRunning = true;
+
+            Thread countdownThread = new Thread(() =>
+            {
+                for (int i = numberOfSeconds; i > 0; i--)
+                {
+                    Console.Write($"\rTime remaining: {i} seconds     ");
+                    Thread.Sleep(1000);
+                }
+                Console.WriteLine("\rCountdown finished!                  ");
+
+                // starts the countdown again, so we'll have to take this out later
+                isCountdownRunning = false;
+            });
+
+            countdownThread.Start();
         }
+
     }
     
     // Method to create GameObject using the factory from clients

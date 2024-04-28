@@ -1,7 +1,12 @@
-﻿using libs;
+using libs;
+using System;
+using System.Threading;
 
 class Program
 {    
+    
+    static private int numberOfSeconds = 60;
+
     static void Main(string[] args)
     {
         //Setup
@@ -12,7 +17,7 @@ class Program
         engine.Setup();
 
         // INITIAL RENDER
-        engine.Render();
+        engine.Render(numberOfSeconds);
 
         // Main game loop
         while (true)
@@ -23,7 +28,7 @@ class Program
 
             engine.Update();
 
-            engine.Render();
+            engine.Render(numberOfSeconds);
 
             // CHECK WIN CONDITION
             // if (engine.checkWinCond()) {
@@ -31,5 +36,6 @@ class Program
             // }
         }
     }
+
 
 }
