@@ -73,6 +73,14 @@ public sealed class GameEngine
  
     }
 
+    private string dialog = "Here you will find clues.";
+
+    public void SetDialog(string value) {
+ 
+        dialog = value;
+ 
+    }
+
     public void Render() {
         
         //Clean the map
@@ -81,6 +89,9 @@ public sealed class GameEngine
         map.Initialize();
 
         PlaceGameObjects();
+
+        // timer
+        Console.WriteLine($"\rTime remaining: {this.GetNumberOfSeconds()} seconds ");
 
         // Render the map
         for (int i = 0; i < map.MapHeight; i++)
@@ -91,8 +102,18 @@ public sealed class GameEngine
             }
             Console.WriteLine();
         };
+        
+        
+        Console.WriteLine("____________________________________________________________");
+        Console.WriteLine("|                                                            |");
+        Console.WriteLine("|                                                            |");
+        Console.WriteLine("|                                                            |");
+        Console.WriteLine(dialog);
+        Console.WriteLine("|                                                            |");
+        Console.WriteLine("|                                                            |");
+        Console.WriteLine("|                                                            |");
+        Console.WriteLine("____________________________________________________________");
 
-        Console.Write($"\rTime remaining: {this.GetNumberOfSeconds()} seconds ");
     }
     
     // Method to create GameObject using the factory from clients
