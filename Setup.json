@@ -21,6 +21,12 @@
         "Color": 5,
         "PosX": 5,
         "PosY": 5
+      },
+      {
+        "Type": 4,
+        "Color": 5,
+        "PosX": 2,
+        "PosY": 2
       }
   ]
 }

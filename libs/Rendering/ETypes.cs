@@ -4,4 +4,5 @@ public enum GameObjectType
   Obstacle,
   Floor,
   NPC,
+  Key,
 }

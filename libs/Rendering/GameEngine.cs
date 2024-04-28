@@ -124,6 +124,15 @@ public sealed class GameEngine
                 return;
             }
         });
+
+        // RENDER THE KEY
+        gameObjects.ForEach(delegate(GameObject obj)
+        {
+            if (obj.Type == GameObjectType.Key)
+            {
+                map.Set(ref obj);
+            }
+        });
     }
 
     private void DrawObject(GameObject gameObject){
