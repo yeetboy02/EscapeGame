@@ -13,6 +13,7 @@ public class GameObject : IGameObject, IMovement
 
     public GameObjectType Type;
 
+    private bool _isHidden = false;
     public GameObject() {
         this._posX = 5;
         this._posY = 5;
@@ -24,10 +25,11 @@ public class GameObject : IGameObject, IMovement
         this._posY = posY;
     }
 
-    public GameObject(int posX, int posY, ConsoleColor color){
+    public GameObject(int posX, int posY, ConsoleColor color, bool isHidden){
         this._posX = posX;
         this._posY = posY;
         this._color = color;
+        this._isHidden = isHidden;
     }
 
     public char CharRepresentation
@@ -52,6 +54,12 @@ public class GameObject : IGameObject, IMovement
     {
         get { return _posY; }
         set { _posY = value; }
+    }
+
+    public bool isHidden
+    {
+        get { return _isHidden; }
+        set { _isHidden = value; }
     }
 
     public int GetPrevPosY() {

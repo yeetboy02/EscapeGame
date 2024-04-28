@@ -75,6 +75,7 @@ public sealed class GameEngine
             for (int j = 0; j < map.MapWidth; j++)
             {
                 DrawObject(map.Get(i, j));
+                
             }
             Console.WriteLine();
         }
@@ -115,20 +116,20 @@ public sealed class GameEngine
             }
         });
 
-        // RENDER THE PLAYER
+        // RENDER THE KEY
         gameObjects.ForEach(delegate(GameObject obj)
         {
-            if (obj.Type == GameObjectType.Player)
+            if (obj.Type == GameObjectType.Key)
             {
                 map.Set(ref obj);
                 return;
             }
         });
 
-        // RENDER THE KEY
+        // RENDER THE PLAYER
         gameObjects.ForEach(delegate(GameObject obj)
         {
-            if (obj.Type == GameObjectType.Key)
+            if (obj.Type == GameObjectType.Player)
             {
                 map.Set(ref obj);
                 return;
@@ -140,10 +141,13 @@ public sealed class GameEngine
         
         Console.ResetColor();
 
-        if(gameObject != null)
+        if(gameObject != null && !gameObject.isHidden)
         {
             Console.ForegroundColor = gameObject.Color;
             Console.Write(gameObject.CharRepresentation);
+        }
+        else if(gameObject.isHidden){
+            Console.Write('•');
         }
         else{
             Console.ForegroundColor = ConsoleColor.Gray;

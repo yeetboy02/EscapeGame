@@ -5,5 +5,6 @@ public class Obstacle : GameObject {
         this.Type = GameObjectType.Obstacle;
         this.CharRepresentation = '█';
         this.Color = ConsoleColor.Cyan;
+        this.isHidden = false;
     }
 }

@@ -2,7 +2,6 @@ namespace libs;
 
 public sealed class Key : GameObject {
     private static Key _instance = null;
-
     public static Key Instance {
         get{
             if(_instance == null)
@@ -13,8 +12,9 @@ public sealed class Key : GameObject {
         }
     }
     private Key () : base() {
-        this.Type = GameObjectType.Obstacle;
+        this.Type = GameObjectType.Key;
         this.CharRepresentation = '!';
         this.Color = ConsoleColor.Cyan;
+        this.isHidden = true;
     }
 }

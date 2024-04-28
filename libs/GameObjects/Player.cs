@@ -26,6 +26,7 @@ public sealed class Player : GameObject {
         Type = GameObjectType.Player;
         CharRepresentation = directions[currDir];
         Color = ConsoleColor.DarkYellow;
+        this.isHidden = false;
     }
 
     public override void onCollision(GameObject gameObject, GameObject?[,] map) {

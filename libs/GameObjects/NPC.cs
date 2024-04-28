@@ -5,5 +5,6 @@ public class NPC : GameObject {
         this.Type = GameObjectType.Obstacle;
         this.CharRepresentation = '☺';
         this.Color = ConsoleColor.Cyan;
+        this.isHidden = false;
     }
 }
