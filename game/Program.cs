@@ -5,7 +5,7 @@ using System.Threading;
 class Program
 {    
    
-    static private int numberOfSeconds = 2;
+    static private int numberOfSeconds = 120;
     static private bool isCountdownRunning = false;
  
     static void Main(string[] args)

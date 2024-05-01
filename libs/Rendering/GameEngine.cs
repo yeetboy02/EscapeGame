@@ -68,9 +68,7 @@ public sealed class GameEngine
     }
  
     public void SetNumberOfSeconds(int value) {
- 
         numberofSeconds = value;
- 
     }
 
     private string dialog = "Here you will find clues.";
