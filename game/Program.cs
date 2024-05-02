@@ -10,6 +10,7 @@ class Program
     private static InputHandler inputHandler = InputHandler.Instance;
     private static System.Threading.Timer countdownTimer;
     private static bool shouldRender = false;
+    private static bool gameLost = false;
 
     static void Main(string[] args)
     {
@@ -38,17 +39,14 @@ class Program
 
             }
 
-            // engine.Update();
-
-            if (shouldRender) {
-                // Render game state
+            if (shouldRender && !gameLost) {
                 engine.Render();
                 shouldRender = false;
             }
-            
 
-            //     break;
-            // }
+            if(gameLost) {
+                lostGame();
+            }
         }
     }
 
@@ -60,7 +58,7 @@ class Program
         if (numberOfSeconds <= 0)
         {
             countdownTimer.Change(Timeout.Infinite, Timeout.Infinite);
-            lostGame();
+            gameLost = true;
         }
         engine.SetNumberOfSeconds(numberOfSeconds);
     }
@@ -72,5 +70,5 @@ class Program
         Console.ReadKey();
         Environment.Exit(0);
     }
- 
+
 }
