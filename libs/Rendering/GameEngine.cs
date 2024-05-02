@@ -74,9 +74,7 @@ public sealed class GameEngine
     private string dialog = "Here you will find clues.";
 
     public void SetDialog(string value) {
- 
         dialog = value;
- 
     }
 
     public void Render() {
@@ -100,19 +98,42 @@ public sealed class GameEngine
             }
             Console.WriteLine();
         };
-        
-        
-        Console.WriteLine("____________________________________________________________");
-        Console.WriteLine("|                                                            |");
-        Console.WriteLine("|                                                            |");
-        Console.WriteLine("|                                                            |");
-        Console.WriteLine(dialog);
-        Console.WriteLine("|                                                            |");
-        Console.WriteLine("|                                                            |");
-        Console.WriteLine("|                                                            |");
-        Console.WriteLine("____________________________________________________________");
+
+        RenderDialogBox(0, 10, 50, 6, '*', $" {dialog}          ");
 
     }
+
+    private static void RenderDialogBox( int x, int y, int width, int height,char edge,string dialog )
+    {
+        int LastIndex =0 ;
+        Console.SetCursorPosition(x, y);
+        for ( int h_i = 0; h_i <= height ; h_i++ )
+        {
+            if ( LastIndex != -1 )
+            {
+                int seaindex = (LastIndex + ( width - 1) );
+                if(seaindex >= dialog.Length -1 )
+                    seaindex = dialog.Length - 1;
+                int newIndex = dialog.LastIndexOf(' ',seaindex);
+                if(newIndex == -1 )
+                    newIndex = dialog.Length - 1;
+                string substr = dialog.Substring(LastIndex, newIndex - LastIndex);
+                LastIndex = newIndex;
+                Console.SetCursorPosition(x + 1, y + h_i + 1);
+                Console.Write(substr);
+            }
+            for ( int w_i = 0; w_i <= width; w_i++ )
+            {
+
+                if ( h_i % height == 0 || w_i % width == 0 )
+                {
+                    Console.SetCursorPosition(x + w_i, y + h_i);
+                    Console.Write(edge);
+                }
+            }
+        }
+    }
+    
     
     // Method to create GameObject using the factory from clients
     public GameObject CreateGameObject(dynamic obj)
