@@ -3,76 +3,71 @@ using System;
 using System.Threading;
  
 class Program
-{    
-   
-    static private int numberOfSeconds = 120;
-    static private bool isCountdownRunning = false;
- 
+{
+    private static int numberOfSeconds = 120;
+    
+    private static GameEngine engine = GameEngine.Instance;
+    private static InputHandler inputHandler = InputHandler.Instance;
+    private static System.Threading.Timer countdownTimer;
+    private static bool shouldRender = false;
+
     static void Main(string[] args)
     {
         //Setup
         Console.CursorVisible = false;
-        var engine = GameEngine.Instance;
-        var inputHandler = InputHandler.Instance;
-       
+
         engine.Setup();
         engine.SetNumberOfSeconds(numberOfSeconds);
-        // INITIAL RENDER
+
+        // Schedule countdown timer
+        countdownTimer = new System.Threading.Timer(UpdateCountdown, null, 1000, 1000);
+
+        // Initial render
         engine.Render();
- 
-        if (!isCountdownRunning)
-            {
-                isCountdownRunning = true;
-                Thread countdownThread = new Thread(() =>
-                {
-                   for (int i = numberOfSeconds; i >= 0; i--)
-                    {
-                        engine.SetNumberOfSeconds(i);
-                        if(i <= 0) {
-                            isCountdownRunning = false;
-                            // lostGame();
-                        }
-                        engine.Render();
-                        Thread.Sleep(1000);
-                        
-                    }
- 
-                });
- 
-                countdownThread.Start();
-            }
- 
- 
+
         // Main game loop
         while (true)
         {
+            // Handle keyboard input
+            if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                inputHandler.Handle(keyInfo);
+                engine.Update();
+                shouldRender = true;
 
-            engine.Render();
-
-            if(!isCountdownRunning)  {
-                lostGame();
             }
 
-            // Handle keyboard input
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            inputHandler.Handle(keyInfo);
- 
-            engine.Update();
- 
-           
- 
- 
-            // CHECK WIN CONDITION
-            // if (engine.checkWinCond()) {
+            // engine.Update();
+
+            if (shouldRender) {
+                // Render game state
+                engine.Render();
+                shouldRender = false;
+            }
+            
+
             //     break;
             // }
         }
     }
-    
-    
-    static private void lostGame() {
+
+    static void UpdateCountdown(object state)
+    {
+        numberOfSeconds--;
+        shouldRender = true;
+
+        if (numberOfSeconds <= 0)
+        {
+            countdownTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            lostGame();
+        }
+        engine.SetNumberOfSeconds(numberOfSeconds);
+    }
+    static void lostGame()
+    {
         Console.Clear();
-        Console.WriteLine("You suck!");
+        Console.WriteLine("You lost!");
         Console.WriteLine("Press any key to exit...");
         Console.ReadKey();
         Environment.Exit(0);
