@@ -9,7 +9,6 @@ class Program
     private static GameEngine engine = GameEngine.Instance;
     private static InputHandler inputHandler = InputHandler.Instance;
     private static System.Threading.Timer countdownTimer;
-    private static bool shouldRender = false;
     private static bool gameLost = false;
 
     static void Main(string[] args)
@@ -35,13 +34,8 @@ class Program
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 inputHandler.Handle(keyInfo);
                 engine.Update();
-                shouldRender = true;
-
-            }
-
-            if (shouldRender && !gameLost) {
                 engine.Render();
-                shouldRender = false;
+
             }
 
             if(gameLost) {
@@ -53,7 +47,9 @@ class Program
     static void UpdateCountdown(object state)
     {
         numberOfSeconds--;
-        shouldRender = true;
+
+        Console.SetCursorPosition(0, 0);
+        Console.WriteLine($"\rTime remaining: {numberOfSeconds} seconds ");
 
         if (numberOfSeconds <= 0)
         {
